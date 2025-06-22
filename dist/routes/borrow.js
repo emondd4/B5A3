@@ -16,6 +16,7 @@ exports.BorrowRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const borrow_1 = require("../models/borrow");
 const book_1 = require("../models/book");
+const errorHandler_1 = require("../middleware/errorHandler");
 exports.BorrowRouter = express_1.default.Router();
 // Borrow a Book
 exports.BorrowRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -31,11 +32,7 @@ exports.BorrowRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, f
         });
     }
     catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error.message || 'Error borrowing book',
-            error,
-        });
+        (0, errorHandler_1.errorHandler)(error, req, res, express_1.default);
     }
 }));
 // Borrowed Books Summary
@@ -61,6 +58,7 @@ exports.BorrowRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, fu
             },
             {
                 $project: {
+                    _id: 0,
                     book: {
                         title: '$bookDetails.title',
                         isbn: '$bookDetails.isbn',

@@ -16,11 +16,6 @@ BookRouter.post("/", async (req: Request, res: Response) => {
             data: book,
         });
     } catch (error) {
-        // res.status(400).json({
-        //     success: false,
-        //     message: 'Validation failed',
-        //     error,
-        // });
         errorHandler(error,req,res,express);
     }
 });

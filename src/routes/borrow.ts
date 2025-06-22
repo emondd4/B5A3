@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { Borrow } from '../models/borrow';
 import { Book } from '../models/book';
+import { errorHandler } from '../middleware/errorHandler';
 
 
 export const BorrowRouter = express.Router();
@@ -20,11 +21,7 @@ BorrowRouter.post('/', async (req: Request, res: Response) => {
       data: borrow,
     });
   } catch (error: any) {
-    res.status(400).json({
-      success: false,
-      message: error.message || 'Error borrowing book',
-      error,
-    });
+      errorHandler(error,req,res,express);
   }
 });
 

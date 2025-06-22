@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const book_1 = require("../models/book");
+const errorHandler_1 = require("../middleware/errorHandler");
 exports.BookRouter = express_1.default.Router();
 // Create Book
 exports.BookRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,11 +29,7 @@ exports.BookRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, fun
         });
     }
     catch (error) {
-        res.status(400).json({
-            success: false,
-            message: 'Validation failed',
-            error,
-        });
+        (0, errorHandler_1.errorHandler)(error, req, res, express_1.default);
     }
 }));
 // Get All Books
