@@ -26,6 +26,27 @@ A RESTful API for managing a library system, built with Express, TypeScript, and
 
 **npm**: For dependency management
 
+# Project Structure
+```
+library-management-system/
+├── src/
+│   ├── config/
+│   │   └── db.ts
+│   ├── models/
+│   │   ├── book.ts
+│   │   └── borrow.ts
+│   ├── routes/
+│   │   ├── books.ts
+│   │   └── borrow.ts
+│   ├── middleware/
+│   │   └── errorHandler.ts
+│   ├── app.ts
+│   └── server.ts
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
 # Setup Instruction
 
 1. Clone The Repository
@@ -216,4 +237,78 @@ A RESTful API for managing a library system, built with Express, TypeScript, and
      "message": "Book not found",
      "error": "Not found"
      }
-    
+
+  6. Borrow a Book (POST /api/borrow)
+
+     **Request**
+     ```json
+     {
+     "book": "64ab3f9e2a4b5c6d7e8f9012",
+     "quantity": 2,
+     "dueDate": "2025-07-18T00:00:00.000Z"
+     }
+     ```
+
+     **Response**
+     ```json
+     {
+     "success": true,
+     "message": "Book borrowed successfully",
+     "data": {
+       "_id": "64bc4a0f9e1c2d3f4b5a6789",
+       "book": "64ab3f9e2a4b5c6d7e8f9012",
+       "quantity": 2,
+       "dueDate": "2025-07-18T00:00:00.000Z",
+       "createdAt": "2025-06-18T07:12:15.123Z",
+       "updatedAt": "2025-06-18T07:12:15.123Z"
+        }
+      }
+     ```
+  
+     **Error**
+     ```json
+     {
+     "message": "Validation failed",
+     "success": false,
+     "error": {
+       "name": "ValidationError",
+       "errors": {
+         "book": {
+           "message": "Cast to ObjectId failed for value \"invalid-id\" at path \"book\"",
+           "name": "CastError",
+           "properties": {
+             "message": "Cast to ObjectId failed for value \"invalid-id\" at path \"book\"",
+             "type": "invalid"
+           },
+           "kind": "invalid",
+           "path": "book"
+            }
+          }
+        }
+      }   
+
+  5. Borrowed Book Summary (GET /api/borrow)
+
+     **Response**
+     ```json
+     {
+     "success": true,
+     "message": "Borrowed books summary retrieved successfully",
+     "data": [
+       {
+         "book": {
+           "title": "The Theory of Everything",
+           "isbn": "9780553380163"
+         },
+         "totalQuantity": 5
+       },
+       {
+         "book": {
+           "title": "1984",
+           "isbn": "9780451524935"
+         },
+         "totalQuantity": 3
+          }   
+        ]
+      }
+     ```
