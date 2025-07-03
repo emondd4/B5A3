@@ -11,7 +11,7 @@ const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
-    origin: ['https://library-management-frontend-sigma.vercel.app', 'http://localhost:*']
+    origin: ['https://library-management-frontend-sigma.vercel.app', 'http://localhost:5174']
 }));
 // Error handling middleware
 app.use(errorHandler_1.errorHandler);

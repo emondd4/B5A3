@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: ['https://library-management-frontend-sigma.vercel.app','http://localhost:*']
+    origin: ['https://library-management-frontend-sigma.vercel.app','http://localhost:5174']
 }))
 
 // Error handling middleware
